@@ -1,0 +1,25 @@
+language: go
+go: 1.6
+install:
+script:
+- go test -v -cover
+before_deploy:
+  - mkdir -p bin
+  - GOOS=linux GOARCH=amd64 go build -ldflags "-X main.Version=TRAVIS_TAG" -o bin/drone-trigger_linux_amd64
+  - GOOS=linux GOARCH=386 go build -ldflags "-X main.Version=TRAVIS_TAG" -o bin/drone-trigger_linux_386
+  - GOOS=linux GOARCH=arm go build -ldflags "-X main.Version=TRAVIS_TAG" -o bin/drone-trigger_linux_arm
+  - GOOS=darwin GOARCH=amd64 go build -ldflags "-X main.Version=TRAVIS_TAG" -o bin/drone-trigger_darwin_amd64
+  - GOOS=windows GOARCH=amd64 go build -ldflags "-X main.Version=TRAVIS_TAG" -o bin/drone-trigger_windows_amd64.exe
+deploy:
+  provider: releases
+  api_key:
+    secure: Z0VPkgJ2TYY2E66Z3Np2CmIOiSb6jfTtKAijmjyP9BNprxQpqpTIGch1RU3tFRj79rab7lOCJ/jUr4F1pOth4JjMWWmhoKLsSEP6KphSgapuh4++TU/9+Qy0hCvOYW5+HP/TozGwFcjEJvD6W3jOZbYh0jbKIFPifXJNraWzKddSaYkww94ZgN/m2sjygO5cOvrvKqwMoBKaKpJWbZ8JMvgBf+jbwtMwbMXMFg4OW4CLMKpRibY7IEQOHHogYV9s+ly32jFyrpFNaP5CMeho6KE3KmJQaYn21mcDSFrBS90xtJGPdJwVbutuPZ04y1J+IypfgIJ7qBxewTRmsxWcn2Ziyg3gwP/bCmVQzOXA8+/ZFaax/WCdbXyzF2kRXlpU23C5lWbtQKO02B657xD6GOs9vB76UjWx9yEpmzV3OwSsqFz0IjMDt6VhjYTtkK30AV2XapykroHgshpug7K7mMdruugU9g6jjRKFyx0ITd6njNFrbBN009DawlRRrOhPoh6dPJ/fu6gbgTyk3AIjKBRlE6U6t97OUiPaLXAAUL/JrHwYvU/PFaNm1kxzvLevqJAIChU2eIViB2tRgdQiEWIyIQEV2KiyoY3w05BscFLB45TiyYkogYaxrvXimFfFx6fXl7Luk1lFNmPqIsH7ttgp+2bagYegNHS1hFGqS00=
+  file:
+    - bin/drone-trigger_linux_amd64
+    - bin/drone-trigger_linux_386
+    - bin/drone-trigger_linux_arm
+    - bin/drone-trigger_darwin_amd64
+    - bin/drone-trigger_windows_amd64.exe
+  on:
+    tag: true
+    repo: UKHomeOffice/drone-trigger
