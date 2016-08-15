@@ -1,0 +1,125 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"path": "appengine",
+			"revision": ""
+		},
+		{
+			"path": "appengine_internal",
+			"revision": ""
+		},
+		{
+			"path": "appengine_internal/base",
+			"revision": ""
+		},
+		{
+			"path": "context",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "Ys85CteY64BQ85meMDv4pvqoLCs=",
+			"path": "github.com/drone/drone/client",
+			"revision": "fe750c751aa242744c26eeb693b58fa6fcf9ca3b",
+			"revisionTime": "2016-08-13T16:35:39Z"
+		},
+		{
+			"checksumSHA1": "Ev4R+09JDxbNbH67GDpjd9VARKI=",
+			"path": "github.com/drone/drone/model",
+			"revision": "fe750c751aa242744c26eeb693b58fa6fcf9ca3b",
+			"revisionTime": "2016-08-13T16:35:39Z"
+		},
+		{
+			"checksumSHA1": "tPhx8lbkuwMme9Na3ynqPn/Ze50=",
+			"path": "github.com/drone/drone/queue",
+			"revision": "fe750c751aa242744c26eeb693b58fa6fcf9ca3b",
+			"revisionTime": "2016-08-13T16:35:39Z"
+		},
+		{
+			"checksumSHA1": "5MVpi9U1WCrzZ1VMMn61Fc+trE0=",
+			"path": "github.com/golang/protobuf/proto",
+			"revision": "2c1988e8c18d14b142c0b472624f71647cf39adb",
+			"revisionTime": "2016-08-08T18:15:00Z"
+		},
+		{
+			"checksumSHA1": "klfNfdEPsrWYLps2qBkLgfJsNYI=",
+			"path": "github.com/gorilla/websocket",
+			"revision": "a69d25be2fe2923a97c2af6849b2f52426f68fc0",
+			"revisionTime": "2016-08-02T13:32:03Z"
+		},
+		{
+			"checksumSHA1": "jm802xmRmtkUSVCED5SiDwIe0Jo=",
+			"path": "github.com/urfave/cli",
+			"revision": "168c95418e66e019fe17b8f4f5c45aa62ff80e23",
+			"revisionTime": "2016-08-01T03:09:57Z"
+		},
+		{
+			"checksumSHA1": "9jjO5GjLa0XF/nfWihF02RoH4qc=",
+			"path": "golang.org/x/net/context",
+			"revision": "07b51741c1d6423d4a6abab1c49940ec09cb1aaf",
+			"revisionTime": "2016-08-11T10:50:59Z"
+		},
+		{
+			"checksumSHA1": "WHc3uByvGaMcnSoI21fhzYgbOgg=",
+			"path": "golang.org/x/net/context/ctxhttp",
+			"revision": "07b51741c1d6423d4a6abab1c49940ec09cb1aaf",
+			"revisionTime": "2016-08-11T10:50:59Z"
+		},
+		{
+			"checksumSHA1": "yNdgWHw0jfiNAO9E7IfrbyiuKVc=",
+			"path": "golang.org/x/oauth2",
+			"revision": "4784bb855e56a530f1ce5d788959359ed6cb4a16",
+			"revisionTime": "2016-08-10T08:59:49Z"
+		},
+		{
+			"checksumSHA1": "D3v/aqfB9swlaZcSksCoF+lbOqo=",
+			"path": "golang.org/x/oauth2/internal",
+			"revision": "4784bb855e56a530f1ce5d788959359ed6cb4a16",
+			"revisionTime": "2016-08-10T08:59:49Z"
+		},
+		{
+			"checksumSHA1": "4lEP/dEWOMb4r2Aehu0D9iBDgIU=",
+			"path": "google.golang.org/appengine/internal",
+			"revision": "e951d3868b377b14f4e60efa3a301532ee3c1ebf",
+			"revisionTime": "2016-08-10T20:11:16Z"
+		},
+		{
+			"checksumSHA1": "TsNO8P0xUlLNyh3Ic/tzSp/fDWM=",
+			"path": "google.golang.org/appengine/internal/base",
+			"revision": "e951d3868b377b14f4e60efa3a301532ee3c1ebf",
+			"revisionTime": "2016-08-10T20:11:16Z"
+		},
+		{
+			"checksumSHA1": "5QsV5oLGSfKZqTCVXP6NRz5T4Tw=",
+			"path": "google.golang.org/appengine/internal/datastore",
+			"revision": "e951d3868b377b14f4e60efa3a301532ee3c1ebf",
+			"revisionTime": "2016-08-10T20:11:16Z"
+		},
+		{
+			"checksumSHA1": "Gep2T9zmVYV8qZfK2gu3zrmG6QE=",
+			"path": "google.golang.org/appengine/internal/log",
+			"revision": "e951d3868b377b14f4e60efa3a301532ee3c1ebf",
+			"revisionTime": "2016-08-10T20:11:16Z"
+		},
+		{
+			"checksumSHA1": "a1XY7rz3BieOVqVI2Et6rKiwQCk=",
+			"path": "google.golang.org/appengine/internal/remote_api",
+			"revision": "e951d3868b377b14f4e60efa3a301532ee3c1ebf",
+			"revisionTime": "2016-08-10T20:11:16Z"
+		},
+		{
+			"checksumSHA1": "QtAbHtHmDzcf6vOV9eqlCpKgjiw=",
+			"path": "google.golang.org/appengine/internal/urlfetch",
+			"revision": "e951d3868b377b14f4e60efa3a301532ee3c1ebf",
+			"revisionTime": "2016-08-10T20:11:16Z"
+		},
+		{
+			"checksumSHA1": "akOV9pYnCbcPA8wJUutSQVibdyg=",
+			"path": "google.golang.org/appengine/urlfetch",
+			"revision": "e951d3868b377b14f4e60efa3a301532ee3c1ebf",
+			"revisionTime": "2016-08-10T20:11:16Z"
+		}
+	],
+	"rootPath": "github.com/vaijab/drone-trigger"
+}
