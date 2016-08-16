@@ -58,7 +58,7 @@ pipeline:
       - docker push foo/bar:${DRONE_COMMIT_SHA}
 
   trigger_deploy:
-    image: quay.io/ukhomeofficedigital/drone-trigger
+    image: quay.io/ukhomeofficedigital/drone-trigger:v0.0.3
     drone-server: https://drone.example.com
     repo: owner/go-deploy-scripts
     branch: master
