@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func TestparsePairs(t *testing.T) {
+func TestParsePairs(t *testing.T) {
 	s := []string{"FOO=bar", "BAR=", "INVALID"}
 	p := parsePairs(s)
 	if p["FOO"] != "bar" {

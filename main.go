@@ -17,6 +17,7 @@ var Version string
 func main() {
 	app := cli.NewApp()
 	app.Name = "drone-trigger"
+	app.Author = "Vaidas Jablonskis <jablonskis@gmail.com>"
 	app.Version = Version
 	app.Usage = "trigger drone builds or deployments"
 

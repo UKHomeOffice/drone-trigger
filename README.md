@@ -1,5 +1,7 @@
 # drone-trigger
 
+[![Build Status](https://travis-ci.org/UKHomeOffice/drone-trigger.svg?branch=master)](https://travis-ci.org/UKHomeOffice/drone-trigger) [![Docker Repository on Quay](https://quay.io/repository/ukhomeofficedigital/drone-trigger/status "Docker Repository on Quay")](https://quay.io/repository/ukhomeofficedigital/drone-trigger)
+
 Drone plugin for triggering downstream builds with custom parameters
 
 This plugin allows for triggering remote or local builds. You can specify
@@ -101,8 +103,18 @@ GLOBAL OPTIONS:
 
 ```
 
+## Release process
+
+Push / Merge to master will produce a docker
+[image](https://quay.io/repository/ukhomeofficedigital/drone-trigger?tab=tags) with a tag `latest`.
+
+To create a new release, just create a new tag off master.
+
 ## Contributing
 
 We welcome pull requests. Please check issues and existing PRs before submitting a patch.
 
+## Author
+
+Vaidas Jablonskis [vaijab](https://github.com/vaijab)
 
