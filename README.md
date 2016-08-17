@@ -114,4 +114,7 @@ To create a new release, just create a new tag off master.
 
 We welcome pull requests. Please check issues and existing PRs before submitting a patch.
 
+## Author
+
+Vaidas Jablonskis [vaijab](https://github.com/vaijab)
 
