@@ -25,12 +25,12 @@ GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-X main.Version=dev+git
 
 The following parameters are used to configure the plugin:
 
-- `drone-server`: full URL to the drone server, it can be a remote drone server as well
-- `drone-token` or `${DRONE_TOKEN}`: drone user secret token. Just create a `DRONE_TOKEN` secret, the plugin will pick it up
+- `drone_server`: full URL to the drone server, it can be a remote drone server as well
+- `drone_token` or `${DRONE_TOKEN}`: drone user secret token. Just create a `DRONE_TOKEN` secret, the plugin will pick it up
 - `repo`: git repository in owner/name format
 - `status`: build status filter, default is `success`
 - `event`: build event type filter. If unset, no event filter will be done
-- `deploy-to`: sends a deployment trigger, which also sets a `DEPLOY_TO` environment variable
+- `deploy_to`: sends a deployment trigger, which also sets a `DEPLOY_TO` environment variable
 - `params`: list of custom parameters that will be passed into a build environment as environment variables
 - `fork`: create a new build and a build number instead of restarting an existing build. Please note that a deployment trigger always spawns a new build
 - `verbose`: displays a more verbose output
@@ -61,10 +61,10 @@ pipeline:
 
   trigger_deploy:
     image: quay.io/ukhomeofficedigital/drone-trigger:latest
-    drone-server: https://drone.example.com
+    drone_server: https://drone.example.com
     repo: owner/go-deploy-scripts
     branch: master
-    deploy-to: prod
+    deploy_to: prod
     params:
       - IMAGE_NAME=foo/bar:${DRONE_COMMIT_SHA}
 ```
