@@ -19,10 +19,10 @@
 			"revision": ""
 		},
 		{
-			"checksumSHA1": "Ys85CteY64BQ85meMDv4pvqoLCs=",
+			"checksumSHA1": "Rfbx7x2wVwTJD2aH5J3lY7ll6PI=",
 			"path": "github.com/drone/drone/client",
-			"revision": "fe750c751aa242744c26eeb693b58fa6fcf9ca3b",
-			"revisionTime": "2016-08-13T16:35:39Z"
+			"revision": "993694e280175ff7fbcee0a3bac162b100c85157",
+			"revisionTime": "2016-08-19T17:32:49Z"
 		},
 		{
 			"checksumSHA1": "Ev4R+09JDxbNbH67GDpjd9VARKI=",
@@ -121,5 +121,5 @@
 			"revisionTime": "2016-08-10T20:11:16Z"
 		}
 	],
-	"rootPath": "github.com/vaijab/drone-trigger"
+	"rootPath": "github.com/UKHomeOffice/drone-trigger"
 }
