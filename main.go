@@ -96,19 +96,23 @@ func main() {
 
 func run(ctx *cli.Context) error {
 	// Exit if required flags are not set
-	if !ctx.IsSet("drone-server") {
+	if !ctx.IsSet("drone-server") && !isAnyEnvSet("DRONE_SERVER", "PLUGIN_DRONE_SERVER") {
 		cli.ShowAppHelp(ctx)
 		return cli.NewExitError("error: drone server is not set", 3)
 	}
-	if !ctx.IsSet("drone-token") {
+	if !ctx.IsSet("drone-token") && !isAnyEnvSet("DRONE_TOKEN", "PLUGIN_DRONE_TOKEN") {
 		cli.ShowAppHelp(ctx)
 		return cli.NewExitError("error: drone token is not set", 3)
 	}
-	if !ctx.IsSet("repo") {
+	if !ctx.IsSet("repo") && !isAnyEnvSet("REPO", "PLUGIN_REPO") {
 		cli.ShowAppHelp(ctx)
 		return cli.NewExitError("error: repo is not set", 3)
 	}
-	if (ctx.IsSet("tag") && (ctx.IsSet("branch") || ctx.IsSet("commit"))) || (ctx.IsSet("branch") && ctx.IsSet("commit")) {
+	if ((ctx.IsSet("tag") || isAnyEnvSet("FILTER_TAG", "PLUGIN_TAG")) &&
+		((ctx.IsSet("branch") || (isAnyEnvSet("FILTER_BRANCH", "PLUGIN_BRANCH"))) ||
+			(ctx.IsSet("commit") || isAnyEnvSet("FILTER_COMMIT", "PLUGIN_COMMIT")))) ||
+		((ctx.IsSet("branch") || isAnyEnvSet("FILTER_BRANCH", "PLUGIN_BRANCH")) &&
+			(ctx.IsSet("commit") || isAnyEnvSet("FILTER_COMMIT", "PLUGIN_COMMIT"))) {
 		return cli.NewExitError("error: tag, branch or commit cannot be set at the same time, pick one filter", 3)
 	}
 
@@ -124,14 +128,14 @@ func run(ctx *cli.Context) error {
 	params := parsePairs(ctx.StringSlice("param"))
 	newBuild := &model.Build{}
 	owner, repo, err := parseRepo(ctx.String("repo"))
-	if ctx.IsSet("deploy-to") {
+	if ctx.IsSet("deploy-to") || isAnyEnvSet("DEPLOY_TO", "PLUGIN_DEPLOY_TO") {
 		b, err := c.Deploy(owner, repo, build.Number, ctx.String("deploy-to"), params)
 		if err != nil {
 			return cli.NewExitError(err.Error(), 1)
 		}
 		newBuild = b
 	} else {
-		if ctx.IsSet("fork") {
+		if ctx.IsSet("fork") || isAnyEnvSet("DRONE_TOKEN", "PLUGIN_DRONE_TOKEN") {
 			params["fork"] = "true"
 		}
 		b, err := c.BuildStart(owner, repo, build.Number, params)

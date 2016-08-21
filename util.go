@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	drone "github.com/drone/drone/client"
@@ -89,4 +90,16 @@ func parsePairs(p []string) map[string]string {
 		params[parts[0]] = parts[1]
 	}
 	return params
+}
+
+// isAnyEnvSet sets if any of given environment vars is set and returns a boolean
+func isAnyEnvSet(vars ...string) bool {
+	var r bool
+	for _, v := range vars {
+		_, r := os.LookupEnv(v)
+		if r {
+			return r
+		}
+	}
+	return r
 }
