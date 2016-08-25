@@ -30,7 +30,7 @@ The following parameters are used to configure the plugin:
 - `repo`: git repository in owner/name format
 - `status`: build status filter, default is `success`
 - `event`: build event type filter. If unset, no event filter will be done
-- `deploy_to`: sends a deployment trigger, which also sets a `DEPLOY_TO` environment variable
+- `deploy_to`: sends a deployment trigger, which also sets a `DRONE_DEPLOY_TO` environment variable in the target job
 - `params`: list of custom parameters that will be passed into a build environment as environment variables
 - `fork`: create a new build and a build number instead of restarting an existing build. Please note that a deployment trigger always spawns a new build
 - `verbose`: displays a more verbose output
