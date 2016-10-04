@@ -65,8 +65,7 @@ pipeline:
     repo: owner/go-deploy-scripts
     branch: master
     deploy_to: prod
-    params:
-      - IMAGE_NAME=foo/bar:${DRONE_COMMIT_SHA}
+    params: "IMAGE_NAME=foo/bar:${DRONE_COMMIT_SHA},APP_ID=123"
 ```
 
 
