@@ -56,6 +56,12 @@ func match(ctx *cli.Context, build *model.Build) bool {
 		}
 		return false
 	}
+	if ctx.IsSet("deployed-to") {
+		if ctx.String("deployed-to") == build.Deploy {
+			return true
+		}
+		return false
+	}
 	if ctx.String("branch") == build.Branch {
 		return true
 	}
