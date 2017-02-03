@@ -40,6 +40,7 @@ Only one filter from the below list can be specified.
 - `commit`: filter by long commit sha
 - `branch`: filter by branch name
 - `tag`: filter by tag name. Please note that event type will be `tag`.
+- `deployed-to`: filter by the environment deployed to. Please note that event type will be `deployment`.
 
 
 ### Drone configuration

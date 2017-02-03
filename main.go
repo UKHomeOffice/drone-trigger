@@ -79,6 +79,11 @@ func main() {
 			EnvVar: "FILTER_EVENT,PLUGIN_EVENT",
 		},
 		cli.StringFlag{
+			Name:   "deployed-to",
+			Usage:  "filter by environment deployed to",
+			EnvVar: "FILTER_DEPLOYED_TO,PLUGIN_DEPLOYED_TO",
+		},
+		cli.StringFlag{
 			Name:   "deploy-to, d",
 			Usage:  "environment to deploy to, if set a deployment event will be triggered",
 			EnvVar: "DEPLOY_TO,PLUGIN_DEPLOY_TO",
@@ -108,12 +113,27 @@ func run(ctx *cli.Context) error {
 		cli.ShowAppHelp(ctx)
 		return cli.NewExitError("error: repo is not set", 3)
 	}
-	if ((ctx.IsSet("tag") || isAnyEnvSet("FILTER_TAG", "PLUGIN_TAG")) &&
-		((ctx.IsSet("branch") || (isAnyEnvSet("FILTER_BRANCH", "PLUGIN_BRANCH"))) ||
-			(ctx.IsSet("commit") || isAnyEnvSet("FILTER_COMMIT", "PLUGIN_COMMIT")))) ||
-		((ctx.IsSet("branch") || isAnyEnvSet("FILTER_BRANCH", "PLUGIN_BRANCH")) &&
-			(ctx.IsSet("commit") || isAnyEnvSet("FILTER_COMMIT", "PLUGIN_COMMIT"))) {
-		return cli.NewExitError("error: tag, branch or commit cannot be set at the same time, pick one filter", 3)
+
+	loneFilters := 0
+
+	if ctx.IsSet("tag") || isAnyEnvSet("FILTER_TAG", "PLUGIN_TAG") {
+		loneFilters++
+	}
+
+	if ctx.IsSet("branch") || isAnyEnvSet("FILTER_BRANCH", "PLUGIN_BRANCH") {
+		loneFilters++
+	}
+
+	if ctx.IsSet("commit") || isAnyEnvSet("FILTER_COMMIT", "PLUGIN_COMMIT") {
+		loneFilters++
+	}
+
+	if ctx.IsSet("deployed-to") || isAnyEnvSet("FILTER_DEPLOYED_TO", "PLUGIN_DEPLOYED_TO") {
+		loneFilters++
+	}
+
+	if loneFilters > 1 {
+		return cli.NewExitError("error: tag, branch, commit or deployed-to cannot be set at the same time, pick one filter", 3)
 	}
 
 	c := newDroneClient(ctx)
