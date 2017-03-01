@@ -62,8 +62,13 @@ func match(ctx *cli.Context, build *model.Build) bool {
 		}
 		return false
 	}
-	if ctx.String("branch") == build.Branch {
-		return true
+	// Matching on branch does not make sense for pull_request events, because
+	// the branch for PR events is the base branch.
+	if ctx.IsSet("branch") {
+		if ctx.String("branch") == build.Branch && build.Event != "pull_request" {
+			return true
+		}
+		return false
 	}
 	// Return latest successful build if no specific filters are set
 	return true
