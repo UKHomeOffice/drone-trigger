@@ -12,8 +12,8 @@ import (
 
 // findBuild requests an array of previous repo builds from drone API and finds
 // the one that matches given filters
-func findBuild(c drone.Client, ctx *cli.Context) (*model.Build, error) {
-	user, repo, err := parseRepo(ctx.String("repo"))
+func findBuild(c drone.Client, ctx *cli.Context, thisRepo string) (*model.Build, error) {
+	user, repo, err := parseRepo(thisRepo)
 	if err != nil {
 		return nil, err
 	}

@@ -1,2 +1,5 @@
 bin/*
 drone-trigger
+
+.idea/
+.vscode/
