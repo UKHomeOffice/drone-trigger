@@ -42,7 +42,7 @@ func main() {
 			Usage:  "drone auth `TOKEN`",
 			EnvVar: "DRONE_TOKEN,PLUGIN_DRONE_TOKEN",
 		},
-		cli.StringFlag{
+		cli.StringSliceFlag{
 			Name:   "repo, r",
 			Usage:  "`REPO`, eg. foo/bar",
 			EnvVar: "REPO,PLUGIN_REPO",
@@ -137,43 +137,47 @@ func run(ctx *cli.Context) error {
 	}
 
 	c := newDroneClient(ctx)
-	build, err := findBuild(c, ctx)
-	if err != nil {
-		return cli.NewExitError(err.Error(), 1)
-	}
-	if build == nil {
-		return cli.NewExitError("No previous builds found", 1)
-	}
 
-	params := parsePairs(ctx.StringSlice("param"))
-	newBuild := &model.Build{}
-	owner, repo, err := parseRepo(ctx.String("repo"))
-	if ctx.IsSet("deploy-to") || isAnyEnvSet("DEPLOY_TO", "PLUGIN_DEPLOY_TO") {
-		b, err := c.Deploy(owner, repo, build.Number, ctx.String("deploy-to"), params)
+	for _, thisRepo := range ctx.StringSlice("repo") {
+		build, err := findBuild(c, ctx, thisRepo)
 		if err != nil {
 			return cli.NewExitError(err.Error(), 1)
 		}
-		newBuild = b
-	} else {
-		if ctx.IsSet("fork") || isAnyEnvSet("DRONE_TOKEN", "PLUGIN_DRONE_TOKEN") {
-			params["fork"] = "true"
+		if build == nil {
+			return cli.NewExitError("No previous builds found", 1)
 		}
-		b, err := c.BuildStart(owner, repo, build.Number, params)
-		if err != nil {
-			return cli.NewExitError(err.Error(), 1)
+
+		params := parsePairs(ctx.StringSlice("param"))
+		newBuild := &model.Build{}
+		owner, repo, _ := parseRepo(thisRepo)
+		if ctx.IsSet("deploy-to") || isAnyEnvSet("DEPLOY_TO", "PLUGIN_DEPLOY_TO") {
+			b, err := c.Deploy(owner, repo, build.Number, ctx.String("deploy-to"), params)
+			if err != nil {
+				return cli.NewExitError(err.Error(), 1)
+			}
+			newBuild = b
+		} else {
+			if ctx.IsSet("fork") || isAnyEnvSet("DRONE_TOKEN", "PLUGIN_DRONE_TOKEN") {
+				params["fork"] = "true"
+			}
+			b, err := c.BuildStart(owner, repo, build.Number, params)
+			if err != nil {
+				return cli.NewExitError(err.Error(), 1)
+			}
+			newBuild = b
 		}
-		newBuild = b
+
+		newBuildURL := path.Join(ctx.String("drone-server"), thisRepo, strconv.Itoa(newBuild.Number))
+		fmt.Fprintf(os.Stderr, "Follow new build status at: %s\n", newBuildURL)
+
+		if ctx.Bool("verbose") {
+			j, err := json.MarshalIndent(newBuild, "", "  ")
+			if err != nil {
+				return cli.NewExitError(err.Error(), 1)
+			}
+			fmt.Println(string(j))
+		}
 	}
 
-	newBuildURL := path.Join(ctx.String("drone-server"), ctx.String("repo"), strconv.Itoa(newBuild.Number))
-	fmt.Fprintf(os.Stderr, "Follow new build status at: %s\n", newBuildURL)
-
-	if ctx.Bool("verbose") {
-		j, err := json.MarshalIndent(newBuild, "", "  ")
-		if err != nil {
-			return cli.NewExitError(err.Error(), 1)
-		}
-		fmt.Println(string(j))
-	}
 	return nil
 }
