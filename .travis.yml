@@ -7,22 +7,24 @@ env:
     - secure: "CwC8kcW+DP1t21R3gFNr3jskcNSre9W7ztstL+fa2R9AE8rkli9VHJ1qajbOjlzsjUOZFR8mGftwHHHKcPbyn0jpLNnFOj3JSmq+DyVpiizQjr+QJyqwhr4OTfzcKSxe9AUFlHu7kHNj5Ccs0sA4cqnp4Zk7Byt8GoKo5OOiFWjS3oLmFRkBhhycLGZ80k98cces600dgm6+1/pnwCc5g/40GSGKsIxX6mT2b6drVxs3yzKejf5HtN8OiBhj+Kh/q9C2cFtYBcQ0llyhQPhaS2qGz2CJsL97322vxoizUPPz9ULlPvQkFynEMBAvO3mqN5+AYnS8UnuZrp+iOP6ouPls//a8OkqwBLGNVi4dn+tuwtfEZiELwa8k73UTfmKdNCtwPT4ROKvC+hXq+xsLlW5PW3U7mIk25XdjHY8sGyUVQ44mG8VR0d8lVZz20WkoIq/Hb/fXwcWb/IFN0M/FVBSNy+XXbM6BOP1zJYG/ovGq67VNVnphkQuYlh2h8tsKHa7bW3JQM9PTJcGiSOrQx5Et60bUVULhkKwfnBSy6LNRsidEIjKuUCSBUCt5MARJnWTGQqXw+o/hGSGRkeiPiGjBNMNfqaUJlCJGlYazikhdElbEeBQBeB3O1sEjQ8RdLQAkut2IiVoQBOUcFSgFFTKMnyrauOVKkUWYCpsY85w="
 
 language: go
-go: 1.6
+go: 1.8
 
-install: true
+install:
+  - curl https://glide.sh/get | sh
 script:
+  - glide install
   - go test -v -cover
-# Only go build binaries when branch is master
-  - if ([[ ${TRAVIS_BRANCH} == "master" ]] && [[ ${TRAVIS_PULL_REQUEST} != "true" ]]) || [[ -n ${TRAVIS_TAG} ]]; then
-    mkdir -p bin;
-    GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-X main.Version=${TRAVIS_TAG:-git+${TRAVIS_COMMIT}}" -o bin/drone-trigger_linux_amd64;
-    GOOS=linux GOARCH=386 CGO_ENABLED=0 go build -ldflags "-X main.Version=${TRAVIS_TAG:-git+${TRAVIS_COMMIT}}" -o bin/drone-trigger_linux_386;
-    GOOS=linux GOARCH=arm CGO_ENABLED=0 go build -ldflags "-X main.Version=${TRAVIS_TAG:-git+${TRAVIS_COMMIT}}" -o bin/drone-trigger_linux_arm;
-    GOOS=darwin GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-X main.Version=${TRAVIS_TAG:-git+${TRAVIS_COMMIT}}" -o bin/drone-trigger_darwin_amd64;
-    GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-X main.Version=${TRAVIS_TAG:-git+${TRAVIS_COMMIT}}" -o bin/drone-trigger_windows_amd64.exe;
-    docker login -u "ukhomeofficedigital+drone_trigger" -p ${DOCKER_PASSWORD} quay.io;
-    docker build -t quay.io/ukhomeofficedigital/drone-trigger:${TRAVIS_TAG:-latest} .;
-    docker push quay.io/ukhomeofficedigital/drone-trigger:${TRAVIS_TAG:-latest};
+  - go vet -x
+  - mkdir -p bin
+  - GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-X main.Version=${TRAVIS_TAG:-git+${TRAVIS_COMMIT}}" -o bin/drone-trigger_linux_amd64
+  - GOOS=linux GOARCH=386 CGO_ENABLED=0 go build -ldflags "-X main.Version=${TRAVIS_TAG:-git+${TRAVIS_COMMIT}}" -o bin/drone-trigger_linux_386
+  - GOOS=linux GOARCH=arm CGO_ENABLED=0 go build -ldflags "-X main.Version=${TRAVIS_TAG:-git+${TRAVIS_COMMIT}}" -o bin/drone-trigger_linux_arm
+  - GOOS=darwin GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-X main.Version=${TRAVIS_TAG:-git+${TRAVIS_COMMIT}}" -o bin/drone-trigger_darwin_amd64
+  - GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "-X main.Version=${TRAVIS_TAG:-git+${TRAVIS_COMMIT}}" -o bin/drone-trigger_windows_amd64.exe
+  - if ([[ ${TRAVIS_BRANCH} == "master" ]] && [[ ${TRAVIS_EVENT_TYPE} == "push" ]]) || [[ -n ${TRAVIS_TAG} ]]; then
+    docker login -u "ukhomeofficedigital+kubernetes_deploy_kd" -p ${DOCKER_PASSWORD} quay.io;
+    docker build -t quay.io/ukhomeofficedigital/kd:${TRAVIS_TAG:-latest} .;
+    docker push quay.io/ukhomeofficedigital/kd:${TRAVIS_TAG:-latest};
     fi
 deploy:
   provider: releases
