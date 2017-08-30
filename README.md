@@ -32,7 +32,6 @@ The following parameters are used to configure the plugin:
 - `event`: build event type filter. If unset, no event filter will be done
 - `deploy_to`: sends a deployment trigger, which also sets a `DRONE_DEPLOY_TO` environment variable in the target job
 - `params`: list of custom parameters that will be passed into a build environment as environment variables
-- `fork`: create a new build and a build number instead of restarting an existing build. Please note that a deployment trigger always spawns a new build
 - `verbose`: displays a more verbose output
 
 Only one filter from the below list can be specified.
@@ -86,7 +85,6 @@ COMMANDS:
 
 GLOBAL OPTIONS:
    --verbose                      verbose output [$VERBOSE, $PLUGIN_VERBOSE]
-   --fork                         fork an existing build - drone assigns a new build number [$FORK, $PLUGIN_FORK]
    --drone-server URL, -s URL     drone server URL [$DRONE_SERVER, $PLUGIN_DRONE_SERVER]
    --drone-token TOKEN, -t TOKEN  drone auth TOKEN [$DRONE_TOKEN, $PLUGIN_DRONE_TOKEN]
    --repo REPO, -r REPO           REPO, eg. foo/bar [$REPO, $PLUGIN_REPO]

@@ -1,0 +1,6 @@
+package: github.com/UKHomeOffice/drone-trigger
+import:
+- package: github.com/drone/drone-go
+  subpackages:
+  - drone
+- package: github.com/urfave/cli
