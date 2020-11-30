@@ -1,6 +1,6 @@
 # drone-trigger
 
-**[DEPRECATED - NO LONGER MAINTAINED] With the adoption of Drone V1, either the Drone [CLI](https://docs.drone.io/cli/install/) or when used in a pipeline step the [drone-downstream](https://github.com/drone-plugins/drone-downstream) plugin offer alternatives to what this tool was offering.**
+**[DEPRECATED - NO LONGER MAINTAINED] With the adoption of Drone V1, either use the Drone [CLI](https://docs.drone.io/cli/install/) or when used in a pipeline step the [drone-downstream](https://github.com/drone-plugins/drone-downstream) plugin offer alternatives to what this tool was offering.**
 
 [![Build Status](https://travis-ci.org/UKHomeOffice/drone-trigger.svg?branch=master)](https://travis-ci.org/UKHomeOffice/drone-trigger) [![Docker Repository on Quay](https://quay.io/repository/ukhomeofficedigital/drone-trigger/status "Docker Repository on Quay")](https://quay.io/repository/ukhomeofficedigital/drone-trigger)
 
